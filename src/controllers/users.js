@@ -24,7 +24,6 @@ const createUser = async (req, res) => {
 
     return res.status(201).json(createdUser.rows[0]);
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({ mensagem: "Erro interno do servidor" });
   }
 };
@@ -52,7 +51,6 @@ const login = async (req, res) => {
     const { senha: _, ...userConnected } = userData;
     return res.status(200).json({ usuario: userConnected, token });
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({ mensagem: "Erro interno do servidor" });
   }
 };
