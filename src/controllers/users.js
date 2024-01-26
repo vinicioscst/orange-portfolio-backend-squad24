@@ -50,25 +50,42 @@ const login = async (req, res) => {
       return res.status(404).json({ mensagem: "Conta não encontrada" });
     }
 
-    const checkPass = await bcrypt.compare(password, emailExists.rows[0].password);
+    const checkPass = await bcrypt.compare(
+      password,
+      emailExists.rows[0].password
+    );
 
     if (!checkPass) {
       return res.status(401).json({ mensagem: "E-mail ou senha incorretos." });
     }
 
-    const token = jwt.sign({ id: emailExists.rows[0].id }, process.env.JWT_PASSWORD, {
-      expiresIn: "8h",
-    });
+    const token = jwt.sign(
+      { id: emailExists.rows[0].id },
+      process.env.JWT_PASSWORD,
+      {
+        expiresIn: "8h",
+      }
+    );
 
     const { password: _, ...userConnected } = emailExists.rows[0];
 
     return res.status(200).json({ usuario: userConnected, token });
   } catch (error) {
-    console.log(error.message)
+    return res.status(500).json({ mensagem: "Erro interno do servidor" });
+  }
+};
+
+const getUsers = async (req, res) => {
+  try {
+    const users = await pool.query("select * from users");
+
+    return res.status(200).json(users.rows);
+  } catch (error) {
     return res.status(500).json({ mensagem: "Erro interno do servidor" });
   }
 };
 module.exports = {
   createUser,
   login,
+  getUsers,
 };
