@@ -14,11 +14,9 @@ const createUser = async (req, res) => {
     );
 
     if (checkIfEmailIsUnique.rowCount === 1) {
-      return res
-        .status(409)
-        .json({
-          mensagem: "Já existe usuário cadastrado com o e-mail informado.",
-        });
+      return res.status(409).json({
+        mensagem: "Já existe usuário cadastrado com o e-mail informado.",
+      });
     }
     const params = [fullName, email, hashedPassword];
 
@@ -43,26 +41,30 @@ const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const userData = await getUserDataByEmail({ email, table: "users" });
+    const emailExists = await pool.query(
+      `SELECT * FROM USERS WHERE EMAIL = $1`,
+      [email]
+    );
 
-    if (!userData) {
-      return res.status(401).json({ mensagem: "E-mail ou senha incorretos." });
+    if (emailExists.rowCount < 1) {
+      return res.status(404).json({ mensagem: "Conta não encontrada" });
     }
 
-    const checkPass = await bcrypt.compare(password, userData.password);
+    const checkPass = await bcrypt.compare(password, emailExists.rows[0].password);
 
     if (!checkPass) {
       return res.status(401).json({ mensagem: "E-mail ou senha incorretos." });
     }
 
-    const token = jwt.sign({ id: userData.id }, process.env.JWT_PASSWORD, {
+    const token = jwt.sign({ id: emailExists.rows[0].id }, process.env.JWT_PASSWORD, {
       expiresIn: "8h",
     });
 
-    const { password: _, ...userConnected } = userData;
+    const { password: _, ...userConnected } = emailExists.rows[0];
 
     return res.status(200).json({ usuario: userConnected, token });
   } catch (error) {
+    console.log(error.message)
     return res.status(500).json({ mensagem: "Erro interno do servidor" });
   }
 };
