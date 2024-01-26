@@ -2,8 +2,8 @@ CREATE DATABASE banco_local_hackathon_pg;
 
 CREATE TABLE usuarios(
   id SERIAL PRIMARY KEY,
-  nome VARCHAR(100) NOT NULL,
-  sobrenome VARCHAR(100) NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  surname VARCHAR(100) NOT NULL,
   email VARCHAR(255) UNIQUE NOT NULL,
-  senha VARCHAR(255) NOT NULL
+  password VARCHAR(255) NOT NULL
 );
