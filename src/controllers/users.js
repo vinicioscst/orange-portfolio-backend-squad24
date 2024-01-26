@@ -4,20 +4,20 @@ const { getUserDataByEmail } = require("../utils/getUserEmail");
 const jwt = require("jsonwebtoken");
 
 const createUser = async (req, res) => {
-  const { nome, sobrenome, email, senha } = req.body;
+  const { fullName, email, password } = req.body;
 
   try {
-    const hashedPassword = await bcrypt.hash(senha, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    const params = [nome, sobrenome, email, hashedPassword];
+    const params = [fullName, email, hashedPassword];
 
     const createdUser = await pool.query(
       `
-        INSERT INTO usuarios
-        (name, surname, email, password)
+        INSERT INTO users
+        (fullName, email, password)
         VALUES
-        ($1, $2, $3, $4)
-        RETURNING id, name, surname, email
+        ($1, $2, $3)
+        RETURNING id, fullName, email
         `,
       params
     );
@@ -32,7 +32,7 @@ const login = async (req, res) => {
   const { email, senha } = req.body;
 
   try {
-    const userData = await getUserDataByEmail({ email, table: "usuarios" });
+    const userData = await getUserDataByEmail({ email, table: "users" });
 
     if (!userData) {
       return res.status(401).json({ mensagem: "E-mail ou senha incorretos." });
