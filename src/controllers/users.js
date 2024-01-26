@@ -1,6 +1,5 @@
 const bcrypt = require("bcrypt");
 const { pool } = require("../lib/postgres");
-const { getUserDataByEmail } = require("../utils/getUserEmail");
 const jwt = require("jsonwebtoken");
 
 const createUser = async (req, res) => {
@@ -9,6 +8,18 @@ const createUser = async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    const checkIfEmailIsUnique = await pool.query(
+      `SELECT * FROM USERS WHERE EMAIL = $1`,
+      [email]
+    );
+
+    if (checkIfEmailIsUnique.rowCount === 1) {
+      return res
+        .status(409)
+        .json({
+          mensagem: "Já existe usuário cadastrado com o e-mail informado.",
+        });
+    }
     const params = [fullName, email, hashedPassword];
 
     const createdUser = await pool.query(
