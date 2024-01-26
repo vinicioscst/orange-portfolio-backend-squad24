@@ -14,10 +14,10 @@ const createUser = async (req, res) => {
     const createdUser = await pool.query(
       `
         INSERT INTO usuarios
-        (nome, sobrenome, email, senha)
+        (name, surname, email, password)
         VALUES
         ($1, $2, $3, $4)
-        RETURNING id, nome, sobrenome, email
+        RETURNING id, name, surname, email
         `,
       params
     );
@@ -38,7 +38,7 @@ const login = async (req, res) => {
       return res.status(401).json({ mensagem: "E-mail ou senha incorretos." });
     }
 
-    const checkPass = await bcrypt.compare(senha, userData.senha);
+    const checkPass = await bcrypt.compare(senha, userData.password);
 
     if (!checkPass) {
       return res.status(401).json({ mensagem: "E-mail ou senha incorretos." });
@@ -48,7 +48,8 @@ const login = async (req, res) => {
       expiresIn: "8h",
     });
 
-    const { senha: _, ...userConnected } = userData;
+    const { password: _, ...userConnected } = userData;
+
     return res.status(200).json({ usuario: userConnected, token });
   } catch (error) {
     return res.status(500).json({ mensagem: "Erro interno do servidor" });
