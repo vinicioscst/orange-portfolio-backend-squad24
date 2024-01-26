@@ -11,8 +11,9 @@ router.get("/", baseUrl)
 router.post("/user", [validateBodyRequest(createUserSchema)], createUser)
 router.post("/session", [validateBodyRequest(userLoginSchema)], login)
 
-router.use(isUserAuthenticated)
 router.get("/user", getUsers)
+router.use(isUserAuthenticated)
+
 module.exports = {
     router,
 };
