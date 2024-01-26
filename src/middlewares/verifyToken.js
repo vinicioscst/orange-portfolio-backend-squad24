@@ -19,8 +19,7 @@ const isUserAuthenticated = async (req, res, next) => {
       return res.status(401).json({ mensagem: "Não autorizado." });
     }
 
-    const { senha, ...loggedUser } = user.rows[0];
-
+    const { password, ...loggedUser } = user.rows[0];
     req.user = loggedUser;
 
     next();
