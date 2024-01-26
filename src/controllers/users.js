@@ -29,7 +29,7 @@ const createUser = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { email, senha } = req.body;
+  const { email, password } = req.body;
 
   try {
     const userData = await getUserDataByEmail({ email, table: "users" });
@@ -38,7 +38,7 @@ const login = async (req, res) => {
       return res.status(401).json({ mensagem: "E-mail ou senha incorretos." });
     }
 
-    const checkPass = await bcrypt.compare(senha, userData.password);
+    const checkPass = await bcrypt.compare(password, userData.password);
 
     if (!checkPass) {
       return res.status(401).json({ mensagem: "E-mail ou senha incorretos." });
