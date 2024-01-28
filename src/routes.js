@@ -5,6 +5,7 @@ const { isUserAuthenticated } = require("./middlewares/verifyToken");
 const { validateBodyRequest } = require("./middlewares/validateBodyRequest");
 const { createUserSchema, userLoginSchema } = require("./lib/userSchema");
 const { createProject } = require("./controllers/projects");
+const { createProjectSchema } = require("./lib/projectSchema");
 
 const router = Router();
 
@@ -14,7 +15,11 @@ router.post("/session", [validateBodyRequest(userLoginSchema)], login);
 router.get("/user", getUsers);
 
 router.use(isUserAuthenticated);
-router.post("/projects", createProject);
+router.post(
+  "/projects",
+  [validateBodyRequest(createProjectSchema)],
+  createProject
+);
 module.exports = {
   router,
 };
