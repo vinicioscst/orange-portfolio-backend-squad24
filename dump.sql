@@ -12,5 +12,6 @@ CREATE TABLE projects(
   title VARCHAR(100),
   tags VARCHAR(50),
   link VARCHAR(255),
-  description VARCHAR(255)
+  description VARCHAR(255),
+  user_id INTEGER REFERENCES users(id)
 );
