@@ -11,6 +11,18 @@ const createProjectSchema = joi.object({
     "any.required": "O campo tags é obrigatório",
     "string.min": "O campo tags precisa ter ao menos 2 caracteres",
   }),
+  link: joi.string().messages({
+    "string.base": "O campo link precisa ser do tipo string"
+  }),
+  description: joi.string().messages({
+    "string.base": "O campo description precisa ser do tipo string."
+  }),
+  created_date: joi.string().messages({
+    "string.base": "O campo created_date precisa ser do tipo string."
+  }),
+  image: joi.string().messages({
+    "string.base": "O campo image precisa ser do tipo string."
+  })
 });
 
 module.exports = {
