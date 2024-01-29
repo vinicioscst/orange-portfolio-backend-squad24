@@ -1,18 +1,22 @@
 const { pool } = require("../lib/postgres");
+const { format } = require("date-fns")
 
 const createProject = async (req, res) => {
   const { title, tags, link, description } = req.body;
   const userId = req.user.id;
 
   try {
-    const params = [title, tags, link, description, userId ];
+    const date = new Date()
+    const formatDate = format(date, "MM/yy")
+    
+    const params = [title, tags, link, description, userId, formatDate ];
 
     const createdProject = await pool.query(
       `
               INSERT INTO projects
-              (title, tags, link, description, user_id)
+              (title, tags, link, description, user_id, date)
               VALUES
-              ($1, $2, $3, $4, $5)
+              ($1, $2, $3, $4, $5, $6)
               RETURNING *
             `,
       params
