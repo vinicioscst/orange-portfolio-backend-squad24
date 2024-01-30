@@ -8,12 +8,12 @@ CREATE TABLE users(
 );
 
 CREATE TABLE projects(
-	id SERIAL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   title VARCHAR(100),
   tags VARCHAR(50),
   link VARCHAR(255),
   description VARCHAR(255),
-  user_id INTEGER REFERENCES users(id),
-  created_date VARCHAR(100),
-  image VARCHAR(255)
+  image VARCHAR(255),
+  createdDate VARCHAR(100),
+  userId INTEGER REFERENCES users(id)
 );
