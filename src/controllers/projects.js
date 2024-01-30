@@ -20,7 +20,6 @@ const createProject = async (req, res) => {
 
     return res.status(201).json(createdProject.rows[0]);
   } catch (error) {
-    console.log(error.message)
     return res.status(500).json({ mensagem: "Erro interno do servidor" });
   }
 };
@@ -31,11 +30,26 @@ const getProjects = async (req, res) => {
     return res.status(200).json(projects.rows);
   } catch (error) {
     return res.status(500).json({
-      mensagem: 'Erro interno do servidor'
+      mensagem: "Erro interno do servidor",
     });
   }
-}
+};
+
+const getUserProject = async (req, res) => {
+  const id = req.user.id;
+
+  try {
+    const getProjects = await pool.query(
+      "SELECT * FROM projects WHERE userId = $1",
+      [id]
+    );
+    return res.status(201).json(getProjects.rows);
+  } catch (error) {
+    return res.status(500).json({ mensagem: "Erro interno do servidor" });
+  }
+};
 module.exports = {
   createProject,
-  getProjects
+  getProjects,
+  getUserProject,
 };
