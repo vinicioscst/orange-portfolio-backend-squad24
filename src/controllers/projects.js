@@ -31,7 +31,7 @@ const getProjects = async (req, res) => {
     return res.status(200).json(projects.rows);
   } catch (error) {
     return res.status(500).json({
-      msg: 'Erro interno do servidor'
+      mensagem: 'Erro interno do servidor'
     });
   }
 }
