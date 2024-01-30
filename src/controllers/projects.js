@@ -25,6 +25,17 @@ const createProject = async (req, res) => {
   }
 };
 
+const getProjects = async (req, res) => {
+  try {
+    const projects = await pool.query("SELECT * FROM  projects");
+    return res.status(200).json(projects.rows);
+  } catch (error) {
+    return res.status(500).json({
+      msg: 'Erro interno do servidor'
+    });
+  }
+}
 module.exports = {
   createProject,
+  getProjects
 };
