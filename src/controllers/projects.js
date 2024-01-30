@@ -10,7 +10,7 @@ const createProject = async (req, res) => {
     const createdProject = await pool.query(
       `
               INSERT INTO projects
-              (title, tags, link, description, user_id, created_date, image)
+              (title, tags, link, description, userId, createdDate, image)
               VALUES
               ($1, $2, $3, $4, $5, $6, $7)
               RETURNING *
