@@ -6,3 +6,14 @@ CREATE TABLE users(
   email VARCHAR(255) UNIQUE NOT NULL,
   password VARCHAR(255) NOT NULL
 );
+
+CREATE TABLE projects(
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(100),
+  tags VARCHAR(50),
+  link VARCHAR(255),
+  description VARCHAR(255),
+  image VARCHAR(255),
+  createdDate VARCHAR(100),
+  userId INTEGER REFERENCES users(id)
+);
