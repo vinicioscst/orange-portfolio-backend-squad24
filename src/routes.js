@@ -4,7 +4,7 @@ const { createUser, login, getUsers } = require("./controllers/users");
 const { isUserAuthenticated } = require("./middlewares/verifyToken");
 const { validateBodyRequest } = require("./middlewares/validateBodyRequest");
 const { createUserSchema, userLoginSchema } = require("./lib/userSchema");
-const { createProject } = require("./controllers/projects");
+const { createProject, getProjects } = require("./controllers/projects");
 const { createProjectSchema } = require("./lib/projectSchema");
 
 const router = Router();
@@ -20,6 +20,7 @@ router.post(
   [validateBodyRequest(createProjectSchema)],
   createProject
 );
+router.get('/projects', getProjects);
 module.exports = {
   router,
 };
