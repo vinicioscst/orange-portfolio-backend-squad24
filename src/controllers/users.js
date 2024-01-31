@@ -3,7 +3,7 @@ const { pool } = require("../lib/postgres");
 const jwt = require("jsonwebtoken");
 
 const createUser = async (req, res) => {
-  const { fullName, email, password } = req.body;
+  const { fullName, email, password, image, isGoogleAccount } = req.body;
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -18,19 +18,19 @@ const createUser = async (req, res) => {
         mensagem: "Já existe usuário cadastrado com o e-mail informado.",
       });
     }
-    const params = [fullName, email, hashedPassword];
+    const params = [fullName, email, hashedPassword, image, isGoogleAccount];
 
     const createdUser = await pool.query(
       `
         INSERT INTO users
-        (fullName, email, password)
+        (fullName, email, password, image, isGoogleAccount)
         VALUES
-        ($1, $2, $3)
-        RETURNING id, fullName, email
+        ($1, $2, $3, $4, $5)
+        RETURNING *
         `,
       params
     );
-
+ 
     return res.status(201).json(createdUser.rows[0]);
   } catch (error) {
     return res.status(500).json({ mensagem: "Erro interno do servidor" });
@@ -75,6 +75,37 @@ const login = async (req, res) => {
   }
 };
 
+const googleLogin = async (req, res) => {
+  const createData = {...req.body}
+  const loginData = {email: req.body.email, password: req.body.password}
+  const { email } = req.body;
+
+  try {
+    const emailExists = await pool.query(
+      `SELECT * FROM users WHERE email = $1`,
+      [email]
+    );
+
+    if (emailExists.rowCount < 1) {
+      req.body = createData
+      await createUser(req, res)
+      req.body = loginData
+      const loginUser = await login(req, res)
+      return loginUser
+    }
+
+    if (emailExists.rows[0].isgoogleaccount === true) {
+      req.body = loginData
+      const loginUser = await login(req, res)
+      return loginUser
+    }
+    
+    return res.status(409).json({ message: "Já existe uma conta cadastrada com esse email" });
+  } catch (error) {
+    return res.status(500).json({ mensagem: "Erro interno do servidor" });
+  }
+};
+
 const getUsers = async (req, res) => {
   try {
     const users = await pool.query("select * from users");
@@ -87,5 +118,6 @@ const getUsers = async (req, res) => {
 module.exports = {
   createUser,
   login,
+  googleLogin,
   getUsers,
 };
