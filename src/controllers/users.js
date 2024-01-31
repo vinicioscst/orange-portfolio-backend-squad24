@@ -26,7 +26,7 @@ const createUser = async (req, res) => {
         (fullName, email, password, image, isGoogleAccount)
         VALUES
         ($1, $2, $3, $4, $5)
-        RETURNING *
+        RETURNING id, fullName, email, image, isGoogleAccount
         `,
       params
     );
