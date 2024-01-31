@@ -16,7 +16,7 @@ const {
 } = require("./controllers/projects");
 const { createProjectSchema } = require("./lib/projectSchema");
 const multer = require("./lib/multer");
-const { uploadImages } = require("./controllers/upload");
+const { uploadImages, getUploadImages } = require("./controllers/upload");
 
 const router = Router();
 
@@ -35,6 +35,7 @@ router.post(
 router.get("/projects", getProjects);
 router.get("/projects/user", getUserProject);
 router.post("/projects/upload", [multer.single("file")], uploadImages);
+router.get("projects/upload", getUploadImages);
 module.exports = {
   router,
 };

@@ -32,6 +32,21 @@ const uploadImages = async (req, res) => {
   }
 };
 
+const getUploadImages = async (req, res) => {
+  try {
+    const images = await s3
+      .listObjects({
+        Bucket: process.env.BACKBLAZE_BUCKET,
+      })
+      .promise();
+
+    return res.json({ arquivos: images, path: globalImage.Location });
+  } catch (error) {
+    return res.status(500).json({ mensagem: "Erro interno do servidor" });
+  }
+};
+
 module.exports = {
   uploadImages,
+  getUploadImages,
 };
