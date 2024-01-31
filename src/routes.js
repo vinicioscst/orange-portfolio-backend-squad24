@@ -25,6 +25,8 @@ router.post("/user", [validateBodyRequest(createUserSchema)], createUser);
 router.post("/session", [validateBodyRequest(userLoginSchema)], login);
 router.post("/session/google", googleLogin);
 router.get("/user", getUsers);
+router.post("/projects/upload", [multer.single("file")], uploadImages);
+router.get("projects/upload", getUploadImages);
 
 router.use(isUserAuthenticated);
 router.post(
@@ -34,8 +36,7 @@ router.post(
 );
 router.get("/projects", getProjects);
 router.get("/projects/user", getUserProject);
-router.post("/projects/upload", [multer.single("file")], uploadImages);
-router.get("projects/upload", getUploadImages);
+
 module.exports = {
   router,
 };
