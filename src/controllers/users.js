@@ -100,7 +100,7 @@ const googleLogin = async (req, res) => {
       return loginUser
     }
     
-    return res.status(409).json({ message: "Já existe uma conta cadastrada com esse email" });
+    return res.status(409).json({ mensagem: "Já existe uma conta cadastrada com esse email" });
   } catch (error) {
     return res.status(500).json({ mensagem: "Erro interno do servidor" });
   }
