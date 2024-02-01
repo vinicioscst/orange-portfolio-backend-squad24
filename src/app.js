@@ -8,9 +8,7 @@ const app = express();
 app.use(cors({
   origin: '*',
   credentials: true,
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   optionsSuccessStatus: 200,
-  allowedHeaders: 'Accept,Content-Type,Authorization'
 }));
 
 app.use(express.json());
