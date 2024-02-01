@@ -5,6 +5,7 @@ const {
   login,
   getUsers,
   googleLogin,
+  getUser,
 } = require("./controllers/users");
 const { isUserAuthenticated } = require("./middlewares/verifyToken");
 const { validateBodyRequest } = require("./middlewares/validateBodyRequest");
@@ -29,6 +30,7 @@ router.post("/projects/upload", [multer.single("file")], uploadImages);
 router.get("/projects/upload", getUploadImages);
 
 router.use(isUserAuthenticated);
+router.get("/user/profile", getUser);
 router.post(
   "/projects",
   [validateBodyRequest(createProjectSchema)],

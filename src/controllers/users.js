@@ -106,6 +106,22 @@ const googleLogin = async (req, res) => {
   }
 };
 
+const getUser = async (req, res) => {
+  const {id} = req.user;
+
+  try {
+    const user = await pool.query(
+      `SELECT * FROM users WHERE id = $1
+      RETURNING id, fullName, email, image, isGoogleAccount`,
+      [id]
+    );
+
+    return res.status(201).json(user.rows);
+  } catch (error) {
+    return res.status(500).json({ mensagem: "Erro interno do servidor" });
+  }
+};
+
 const getUsers = async (req, res) => {
   try {
     const users = await pool.query("select * from users");
@@ -119,5 +135,6 @@ module.exports = {
   createUser,
   login,
   googleLogin,
+  getUser,
   getUsers,
 };
