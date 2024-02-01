@@ -14,7 +14,7 @@ const {
   createProject,
   getProjects,
   getUserProject,
-  deleteProject
+  updateProject,
 } = require("./controllers/projects");
 const { createProjectSchema } = require("./lib/projectSchema");
 const multer = require("./lib/multer");
@@ -42,7 +42,7 @@ router.get("/projects/user", getUserProject);
 router.put(
   "/project/:id",
   [multer.single("image"), validateBodyRequest(createProjectSchema)],
-  updateProduct
+  updateProject
 );
 
 module.exports = {
