@@ -14,6 +14,7 @@ const {
   createProject,
   getProjects,
   getUserProject,
+  deleteProject,
 } = require("./controllers/projects");
 const { createProjectSchema } = require("./lib/projectSchema");
 const multer = require("./lib/multer");
@@ -38,7 +39,7 @@ router.post(
 );
 router.get("/projects", getProjects);
 router.get("/projects/user", getUserProject);
-
+router.delete("/projects/:id", deleteProject);
 module.exports = {
   router,
 };

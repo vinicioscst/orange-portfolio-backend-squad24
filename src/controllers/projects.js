@@ -48,8 +48,32 @@ const getUserProject = async (req, res) => {
     return res.status(500).json({ mensagem: "Erro interno do servidor" });
   }
 };
+
+const deleteProject = async (req, res) => {
+  const { id: project_id } = req.params;
+  try {
+    const project = await pool.query("SELECT * FROM  projects WHERE id = $1", [
+      project_id,
+    ]);
+
+    if (project.rowCount === 0) {
+      return res
+        .status(404)
+        .json({ mensagem: "O projeto  informado não foi encontrado." });
+    }
+
+    await pool.query("DELETE FROM  projects WHERE id = $1", [project_id]);
+
+    return res.status(204).send();
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ mensagem: "Erro interno do servidor." });
+  }
+};
+
 module.exports = {
   createProject,
   getProjects,
   getUserProject,
+  deleteProject,
 };
