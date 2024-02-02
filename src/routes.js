@@ -17,7 +17,7 @@ const {
 } = require("./controllers/projects");
 const { createProjectSchema } = require("./lib/projectSchema");
 const multer = require("./lib/multer");
-const { uploadImages, getUploadImages } = require("./controllers/upload");
+const { uploadImages} = require("./controllers/upload");
 
 const router = Router();
 
