@@ -6,7 +6,7 @@ const cors = require('cors')
 const app = express();
 
 app.use(cors({
-  origin: 'https://orange-portfolio-frontend-squad24.vercel.app',
+  origin: '*',
 }));
 
 app.use(express.json());
