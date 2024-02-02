@@ -51,7 +51,8 @@ const getUserProject = async (req, res) => {
 
 const updateProject = async (req, res) => {
   const { id: project_id } = req.params;
-  const { title, tags, link, description, createdDate, userId } = req.body;
+  const id = req.user.id;
+  const { title, tags, link, description, createdDate} = req.body;
   const { mimetype, originalname, buffer } = req.file || {
     mimetype: null,
     originalname: null,
@@ -93,7 +94,7 @@ const updateProject = async (req, res) => {
           link,
           description,
           createdDate,
-          userId,
+          id,
           image.url,
           project_id,
         ]
@@ -103,7 +104,7 @@ const updateProject = async (req, res) => {
     }
     project = await pool.query(
       "UPDATE projects SET title = $1, tags = $2, link = $3, description = $4, createdDate = $5, userId = $6, image = $7 WHERE id = $8 RETURNING *",
-      [title, tags, link, description, createdDate, userId, null, project_id]
+      [title, tags, link, description, createdDate, id, null, project_id]
     );
 
     return res.status(200).send(project.rows[0]);
@@ -112,9 +113,6 @@ const updateProject = async (req, res) => {
     return res.status(500).json({ mensagem: "Erro interno do servidor." });
   }
 };
-
-
-
 
 const deleteProject = async (req, res) => {
   const { id: project_id } = req.params;
@@ -138,13 +136,10 @@ const deleteProject = async (req, res) => {
   }
 };
 
-
-
 module.exports = {
   createProject,
   getProjects,
   getUserProject,
   updateProject,
   deleteProject,
-
 };
