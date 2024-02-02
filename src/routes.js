@@ -41,7 +41,7 @@ router.get("/projects", getProjects);
 router.get("/projects/user", getUserProject);
 router.put(
   "/project/:id",
-  [multer.single("image"), validateBodyRequest(createProjectSchema)],
+  [multer.single("file"), validateBodyRequest(createProjectSchema)],
   updateProject
 );
 
