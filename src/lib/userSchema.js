@@ -5,10 +5,7 @@ const createUserSchema = joi.object({
     .string()
     .min(3)
     .required()
-    .regex(/^[a-záéíóúâêîôûã][a-záéíóúâêîôûã]*(?: [a-záéíóúâêîôûã]+)*$/i)
     .messages({
-      "string.pattern.base":
-        "O campo nome precisa ser válido, verifique espaços em branco ou caracteres especiais.",
       "any.required": "O campo nome é obrigatório.",
       "string.empty": "O campo nome não pode ser vazio.",
       "string.min": "O campo nome precisa ter ao menos 3 caracteres.",
@@ -22,6 +19,12 @@ const createUserSchema = joi.object({
     "any.required": "O campo senha é obrigatório.",
     "string.empty": "O campo senha não pode ser vazio.",
     "string.min": "O campo senha precisar ter no mínimo 6 caracteres.",
+  }),
+  image: joi.string().messages({
+    "string.base": "O campo image precisa ser do tipo string.",
+  }),
+  isGoogleAccount: joi.boolean().default(false).messages({
+    "boolean.base": "O campo isGoogleAccount tem que ser um boolean",
   }),
 });
 
@@ -40,5 +43,5 @@ const userLoginSchema = joi.object({
 
 module.exports = {
   createUserSchema,
-  userLoginSchema
+  userLoginSchema,
 };

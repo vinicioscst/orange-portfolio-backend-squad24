@@ -1,11 +1,11 @@
 const { pool } = require("../lib/postgres");
 
 const createProject = async (req, res) => {
-  const { title, tags, link, description, date, image } = req.body;
+  const { title, tags, link, description, createddate, image } = req.body;
   const userId = req.user.id;
 
   try {
-    const params = [title, tags, link, description, userId, date, image];
+    const params = [title, tags, link, description, userId, createddate, image];
 
     const createdProject = await pool.query(
       `
@@ -69,7 +69,7 @@ const updateProject = async (req, res) => {
         .json({ mensagem: "O Projeto informado não foi encontrado" });
     }
 
-    const imageUrl = product.rows[0].image;
+    const imageUrl = project.rows[0].image;
 
     if (imageUrl) {
       const lastSlashIndex = imageUrl.lastIndexOf("/");
@@ -113,9 +113,38 @@ const updateProject = async (req, res) => {
   }
 };
 
+
+
+
+const deleteProject = async (req, res) => {
+  const { id: project_id } = req.params;
+  try {
+    const project = await pool.query("SELECT * FROM  projects WHERE id = $1", [
+      project_id,
+    ]);
+
+    if (project.rowCount === 0) {
+      return res
+        .status(404)
+        .json({ mensagem: "O projeto  informado não foi encontrado." });
+    }
+
+    await pool.query("DELETE FROM  projects WHERE id = $1", [project_id]);
+
+    return res.status(204).send();
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ mensagem: "Erro interno do servidor." });
+  }
+};
+
+
+
 module.exports = {
   createProject,
   getProjects,
   getUserProject,
   updateProject,
+  deleteProject,
+
 };

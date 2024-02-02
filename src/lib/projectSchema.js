@@ -17,7 +17,7 @@ const createProjectSchema = joi.object({
   description: joi.string().messages({
     "string.base": "O campo description precisa ser do tipo string."
   }),
-  created_date: joi.string().messages({
+  createddate: joi.string().messages({
     "string.base": "O campo created_date precisa ser do tipo string."
   }),
   image: joi.string().messages({

@@ -30,7 +30,7 @@ const createUser = async (req, res) => {
         `,
       params
     );
- 
+
     return res.status(201).json(createdUser.rows[0]);
   } catch (error) {
     return res.status(500).json({ mensagem: "Erro interno do servidor" });
@@ -76,8 +76,8 @@ const login = async (req, res) => {
 };
 
 const googleLogin = async (req, res) => {
-  const createData = {...req.body}
-  const loginData = {email: req.body.email, password: req.body.password}
+  const createData = { ...req.body };
+  const loginData = { email: req.body.email, password: req.body.password };
   const { email } = req.body;
 
   try {
@@ -87,54 +87,53 @@ const googleLogin = async (req, res) => {
     );
 
     if (emailExists.rowCount < 1) {
-      req.body = createData
-      await createUser(req, res)
-      req.body = loginData
-      const loginUser = await login(req, res)
-      return loginUser
+      req.body = createData;
+      await createUser(req, res);
+      req.body = loginData;
+      const loginUser = await login(req, res);
+      return loginUser;
     }
 
     if (emailExists.rows[0].isgoogleaccount === true) {
-      req.body = loginData
-      const loginUser = await login(req, res)
-      return loginUser
+      req.body = loginData;
+      const loginUser = await login(req, res);
+      return loginUser;
     }
-    
-    return res.status(409).json({ mensagem: "Já existe uma conta cadastrada com esse email" });
+
+    return res
+      .status(409)
+      .json({ mensagem: "Já existe uma conta cadastrada com esse email" });
   } catch (error) {
     return res.status(500).json({ mensagem: "Erro interno do servidor" });
   }
 };
 
 const getUser = async (req, res) => {
-  const {id} = req.user;
+  const { id } = req.user;
 
   try {
     const user = await pool.query(
-      `SELECT * FROM users WHERE id = $1
-      RETURNING id, fullName, email, image, isGoogleAccount`,
+      `SELECT id, fullName, email, image, isGoogleAccount FROM users WHERE id = $1`,
       [id]
     );
 
-    return res.status(201).json(user.rows);
+    const projects = await pool.query(
+      `SELECT id, title, tags, link, description, image, createddate FROM projects WHERE userid = $1`,
+      [id]
+    );
+
+    return res.status(200).json({
+      user: user.rows[0],
+      projects: projects.rows,
+    });
   } catch (error) {
     return res.status(500).json({ mensagem: "Erro interno do servidor" });
   }
 };
 
-const getUsers = async (req, res) => {
-  try {
-    const users = await pool.query("select * from users");
-
-    return res.status(200).json(users.rows);
-  } catch (error) {
-    return res.status(500).json({ mensagem: "Erro interno do servidor" });
-  }
-};
 module.exports = {
   createUser,
   login,
   googleLogin,
   getUser,
-  getUsers,
 };

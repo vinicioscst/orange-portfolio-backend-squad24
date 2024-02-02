@@ -3,7 +3,6 @@ const { baseUrl } = require("./controllers/baseUrl");
 const {
   createUser,
   login,
-  getUsers,
   googleLogin,
   getUser,
 } = require("./controllers/users");
@@ -15,10 +14,11 @@ const {
   getProjects,
   getUserProject,
   updateProject,
+  deleteProject,
 } = require("./controllers/projects");
 const { createProjectSchema } = require("./lib/projectSchema");
 const multer = require("./lib/multer");
-const { uploadImages, getUploadImages } = require("./controllers/upload");
+const { uploadImages } = require("./controllers/upload");
 
 const router = Router();
 
@@ -26,9 +26,7 @@ router.get("/", baseUrl);
 router.post("/user", [validateBodyRequest(createUserSchema)], createUser);
 router.post("/session", [validateBodyRequest(userLoginSchema)], login);
 router.post("/session/google", googleLogin);
-router.get("/user", getUsers);
 router.post("/projects/upload", [multer.single("file")], uploadImages);
-router.get("/projects/upload", getUploadImages);
 
 router.use(isUserAuthenticated);
 router.get("/user/profile", getUser);
@@ -44,6 +42,7 @@ router.put(
   [multer.single("file"), validateBodyRequest(createProjectSchema)],
   updateProject
 );
+router.delete("/projects/:id", deleteProject);
 
 module.exports = {
   router,
