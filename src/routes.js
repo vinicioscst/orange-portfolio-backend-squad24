@@ -3,7 +3,6 @@ const { baseUrl } = require("./controllers/baseUrl");
 const {
   createUser,
   login,
-  getUsers,
   googleLogin,
   getUser,
 } = require("./controllers/users");
@@ -26,7 +25,6 @@ router.get("/", baseUrl);
 router.post("/user", [validateBodyRequest(createUserSchema)], createUser);
 router.post("/session", [validateBodyRequest(userLoginSchema)], login);
 router.post("/session/google", googleLogin);
-router.get("/user", getUsers);
 router.post("/projects/upload", [multer.single("file")], uploadImages);
 router.get("/projects/upload", getUploadImages);
 
