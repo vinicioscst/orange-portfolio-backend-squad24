@@ -20,6 +20,12 @@ const createUserSchema = joi.object({
     "string.empty": "O campo senha não pode ser vazio.",
     "string.min": "O campo senha precisar ter no mínimo 6 caracteres.",
   }),
+  image: joi.string().messages({
+    "string.base": "O campo image precisa ser do tipo string.",
+  }),
+  isGoogleAccount: joi.boolean().default(false).messages({
+    "boolean.base": "O campo isGoogleAccount tem que ser um boolean",
+  }),
 });
 
 const userLoginSchema = joi.object({
