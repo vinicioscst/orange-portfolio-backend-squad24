@@ -117,7 +117,15 @@ const getUser = async (req, res) => {
       [id]
     );
 
-    return res.status(201).json(user.rows);
+    const projects = await pool.query(
+      `SELECT id, title, tags, link, description, image, createddate FROM projects WHERE userid = $1`,
+      [id]
+    );
+
+    return res.status(200).json({
+      user: user.rows[0],
+      projects: projects.rows,
+    });
   } catch (error) {
     return res.status(500).json({ mensagem: "Erro interno do servidor" });
   }
