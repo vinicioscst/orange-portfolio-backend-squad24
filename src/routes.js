@@ -13,11 +13,12 @@ const {
   createProject,
   getProjects,
   getUserProject,
+  updateProject,
   deleteProject,
 } = require("./controllers/projects");
 const { createProjectSchema } = require("./lib/projectSchema");
 const multer = require("./lib/multer");
-const { uploadImages} = require("./controllers/upload");
+const { uploadImages } = require("./controllers/upload");
 
 const router = Router();
 
@@ -36,7 +37,13 @@ router.post(
 );
 router.get("/projects", getProjects);
 router.get("/projects/user", getUserProject);
+router.put(
+  "/project/:id",
+  [multer.single("file"), validateBodyRequest(createProjectSchema)],
+  updateProject
+);
 router.delete("/projects/:id", deleteProject);
+
 module.exports = {
   router,
 };
