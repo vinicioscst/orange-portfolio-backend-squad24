@@ -5,10 +5,7 @@ const createUserSchema = joi.object({
     .string()
     .min(3)
     .required()
-    .regex(/^[a-záéíóúâêîôûã][a-záéíóúâêîôûã]*(?: [a-záéíóúâêîôûã]+)*$/i)
     .messages({
-      "string.pattern.base":
-        "O campo nome precisa ser válido, verifique espaços em branco ou caracteres especiais.",
       "any.required": "O campo nome é obrigatório.",
       "string.empty": "O campo nome não pode ser vazio.",
       "string.min": "O campo nome precisa ter ao menos 3 caracteres.",
@@ -40,5 +37,5 @@ const userLoginSchema = joi.object({
 
 module.exports = {
   createUserSchema,
-  userLoginSchema
+  userLoginSchema,
 };
