@@ -1,11 +1,11 @@
 const { pool } = require("../lib/postgres");
 
 const createProject = async (req, res) => {
-  const { title, tags, link, description, date, image } = req.body;
+  const { title, tags, link, description, createddate, image } = req.body;
   const userId = req.user.id;
 
   try {
-    const params = [title, tags, link, description, userId, date, image];
+    const params = [title, tags, link, description, userId, createddate, image];
 
     const createdProject = await pool.query(
       `
