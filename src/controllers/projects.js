@@ -25,42 +25,28 @@ const createProject = async (req, res) => {
 };
 
 const getProjects = async (req, res) => {
+  
   try {
     const projects = await pool.query(`
     SELECT
-      projects.*,
-      users.id, users.fullName, users.email, users.image, users.isGoogleAccount
+    projects.*,
+    json_build_object(
+        'fullname', users.fullname,
+        'email', users.email,
+        'profileImage', users.image,
+        'isGoogleAccount', users.isgoogleaccount
+    ) as user
     FROM
-      projects
+    projects
     JOIN
-      users ON projects.user_id = users.user_id;
+    users ON projects.userid = users.id
     `);
+    
     return res.status(200).json(projects.rows);
   } catch (error) {
     return res.status(500).json({
       mensagem: "Erro interno do servidor",
     });
-  }
-};
-
-const getUserProject = async (req, res) => {
-  const id = req.user.id;
-
-  try {
-    const getProjects = await pool.query(
-      `
-      SELECT
-        projects.*,
-        users.id, users.fullName, users.email, users.image, users.isGoogleAccount
-      FROM projects
-      WHERE projects.userId = $1
-      JOIN users ON projects.user_id = users.user_id;
-      `,
-      [id]
-    );
-    return res.status(201).json(getProjects.rows);
-  } catch (error) {
-    return res.status(500).json({ mensagem: "Erro interno do servidor" });
   }
 };
 
@@ -154,7 +140,6 @@ const deleteProject = async (req, res) => {
 module.exports = {
   createProject,
   getProjects,
-  getUserProject,
   updateProject,
   deleteProject,
 };

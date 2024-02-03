@@ -113,19 +113,46 @@ const getUser = async (req, res) => {
 
   try {
     const user = await pool.query(
-      `SELECT id, fullName, email, image, isGoogleAccount FROM users WHERE id = $1`,
+      `SELECT
+      users.id as userid,
+      users.fullname,
+      users.email,
+      users.image as profileimage,
+      users.isgoogleaccount,
+      json_agg(
+        json_build_object(
+          'id', projects.id,
+          'title', projects.title,
+          'tags', projects.tags,
+          'link', projects.link,
+          'description', projects.description,
+          'image', projects.image,
+          'createddate', projects.createddate
+        )
+      ) as projects
+      FROM
+      users
+      LEFT JOIN (
+        SELECT
+            id,
+            title,
+            tags,
+            link,
+            description,
+            image,
+            createddate,
+            userid
+        FROM
+            projects
+      ) AS projects ON users.id = projects.userid
+      WHERE
+      users.id = $1
+      GROUP BY
+      users.id, users.fullname, users.email, users.image, users.isgoogleaccount`,
       [id]
     );
 
-    const projects = await pool.query(
-      `SELECT id, title, tags, link, description, image, createddate FROM projects WHERE userid = $1`,
-      [id]
-    );
-
-    return res.status(200).json({
-      user: user.rows[0],
-      projects: projects.rows,
-    });
+    return res.status(200).json(user.rows[0]);
   } catch (error) {
     return res.status(500).json({ mensagem: "Erro interno do servidor" });
   }

@@ -12,7 +12,6 @@ const { createUserSchema, userLoginSchema } = require("./lib/userSchema");
 const {
   createProject,
   getProjects,
-  getUserProject,
   updateProject,
   deleteProject,
 } = require("./controllers/projects");
@@ -36,7 +35,6 @@ router.post(
   createProject
 );
 router.get("/projects", getProjects);
-router.get("/projects/user", getUserProject);
 router.put(
   "/project/:id",
   [multer.single("file"), validateBodyRequest(createProjectSchema)],
