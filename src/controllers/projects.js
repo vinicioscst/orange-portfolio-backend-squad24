@@ -26,7 +26,15 @@ const createProject = async (req, res) => {
 
 const getProjects = async (req, res) => {
   try {
-    const projects = await pool.query("SELECT * FROM  projects");
+    const projects = await pool.query(`
+    SELECT
+      projects.*,
+      users.id, users.fullName, users.email, users.image, users.isGoogleAccount
+    FROM
+      projects
+    JOIN
+      users ON projects.user_id = users.user_id;
+    `);
     return res.status(200).json(projects.rows);
   } catch (error) {
     return res.status(500).json({
@@ -40,7 +48,14 @@ const getUserProject = async (req, res) => {
 
   try {
     const getProjects = await pool.query(
-      "SELECT * FROM projects WHERE userId = $1",
+      `
+      SELECT
+        projects.*,
+        users.id, users.fullName, users.email, users.image, users.isGoogleAccount
+      FROM projects
+      WHERE projects.userId = $1
+      JOIN users ON projects.user_id = users.user_id;
+      `,
       [id]
     );
     return res.status(201).json(getProjects.rows);
@@ -52,7 +67,7 @@ const getUserProject = async (req, res) => {
 const updateProject = async (req, res) => {
   const { id: project_id } = req.params;
   const id = req.user.id;
-  const { title, tags, link, description, createdDate} = req.body;
+  const { title, tags, link, description, createdDate } = req.body;
   const { mimetype, originalname, buffer } = req.file || {
     mimetype: null,
     originalname: null,
