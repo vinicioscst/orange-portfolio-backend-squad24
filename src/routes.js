@@ -26,7 +26,7 @@ router.get("/", baseUrl);
 router.post("/user", [validateBodyRequest(createUserSchema)], createUser);
 router.post("/session", [validateBodyRequest(userLoginSchema)], login);
 router.post("/session/google", googleLogin);
-router.post("/projects/upload", [multer.single("file")], uploadImages);
+router.post("/upload", [multer.single("file")], uploadImages);
 
 router.use(isUserAuthenticated);
 router.get("/user/profile", getUser);
