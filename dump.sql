@@ -14,7 +14,7 @@ CREATE TABLE projects(
   title VARCHAR(100) NOT NULL,
   tags VARCHAR(50) NOT NULL,
   link VARCHAR(255),
-  description VARCHAR(255),
+  description TEXT,
   image VARCHAR(255),
   createdDate DATE DEFAULT CURRENT_DATE,
   userId INTEGER REFERENCES users(id)
