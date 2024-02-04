@@ -11,11 +11,11 @@ CREATE TABLE users(
 
 CREATE TABLE projects(
   id SERIAL PRIMARY KEY,
-  title VARCHAR(100),
-  tags VARCHAR(50),
+  title VARCHAR(100) NOT NULL,
+  tags VARCHAR(50) NOT NULL,
   link VARCHAR(255),
   description VARCHAR(255),
   image VARCHAR(255),
-  createdDate VARCHAR(100),
+  createdDate DATE DEFAULT CURRENT_DATE,
   userId INTEGER REFERENCES users(id)
 );

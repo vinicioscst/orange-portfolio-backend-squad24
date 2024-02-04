@@ -1,18 +1,18 @@
 const { pool } = require("../lib/postgres");
 
 const createProject = async (req, res) => {
-  const { title, tags, link, description, createddate, image } = req.body;
+  const { title, tags, link, description, image } = req.body;
   const userId = req.user.id;
 
   try {
-    const params = [title, tags, link, description, userId, createddate, image];
+    const params = [title, tags, link, description, userId, image];
 
     const createdProject = await pool.query(
       `
               INSERT INTO projects
-              (title, tags, link, description, userId, createdDate, image)
+              (title, tags, link, description, userId, image)
               VALUES
-              ($1, $2, $3, $4, $5, $6, $7)
+              ($1, $2, $3, $4, $5, $6)
               RETURNING *
             `,
       params
@@ -20,7 +20,7 @@ const createProject = async (req, res) => {
 
     return res.status(201).json(createdProject.rows[0]);
   } catch (error) {
-    return res.status(500).json({ mensagem: "Erro interno do servidor" });
+    return res.status(500).json(error);
   }
 };
 
