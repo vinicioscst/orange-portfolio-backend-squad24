@@ -235,6 +235,7 @@ Essa é a rota que será utilizada para deletar algum projeto cadastrado no sist
 
 </details>
 
+## SQUAD - 24 
 <table>
   <tr>
     <td align="center" style="padding: 10px;">
