@@ -1,11 +1,11 @@
 # Projeto Orange Juice Hackathon - API em Node.js, Express e PostgreSQL
 Bem-vindo ao repositório oficial da API desenvolvida durante a participação no hackathon Orange Juice! Este projeto foi concebido como parte de uma colaboração envolvendo uma equipe de cinco pessoas, incluindo o criador deste repositório.
 ## Visão Geral
-O objetivo principal desta API é fornecer suporte robusto para o front-end de nossa aplicação, que também está em desenvolvimento como parte deste hackathon. Desenvolvida em Node.js, Express e utilizando PostgreSQL como banco de dados, a API atua como uma ponte essencial entre o cliente e o servidor.
+O objetivo principal desta API é fornecer suporte robusto para o front-end de nossa aplicação, que também foi desenvolvida como parte deste hackathon. Desenvolvida em Node.js, Express e utilizando PostgreSQL como banco de dados, a API atua como uma ponte essencial entre o cliente e o servidor.
 ## Estrutura do Repositório
 Este repositório contém o código fonte da API, enquanto o front-end está armazenado em um repositório separado. A separação destes permite uma melhor organização e modularidade do código, facilitando o trabalho em equipe e a manutenção a longo prazo.
 ## Integração e Deploy
-A API está atualmente integrada ao front-end em andamento, fornecendo funcionalidades cruciais para uma experiência do usuário fluida. Além disso, a API foi implantada na plataforma OnRender para garantir um ambiente de produção estável e confiável.
+A API está atualmente integrada ao front-end que já está em andamento na Vercel, fornecendo funcionalidades cruciais para uma experiência do usuário fluida. Além disso, a API foi implantada na plataforma OnRender para garantir um ambiente de produção estável e confiável.
 
 Este README fornece informações essenciais para começar a trabalhar com a API, incluindo instruções de instalação, configuração e utilização. Sinta-se à vontade para explorar o código fonte e contribuir para o crescimento e aprimoramento contínuo deste projeto.
 # Instruções de Instalação
@@ -13,7 +13,7 @@ Siga os passos abaixo para configurar e executar localmente a API em sua máquin
 
 ## Pré-requisitos
 Antes de começar, certifique-se de ter as seguintes ferramentas instaladas em seu ambiente de desenvolvimento:
-- Node.js - versão 12 ou superior
+- Node.js - versão 18 ou superior
 - npm (gerenciador de pacotes do Node.js)
 - PostgreSQL - certifique-se de ter um banco de dados PostgreSQL disponível ( nesse repositório está disponivel um dump.sql para isso )
 ---
@@ -234,3 +234,53 @@ Critérios de aceite:
 Essa é a rota que será utilizada para deletar algum projeto cadastrado no sistema pelo o seu id.
 
 </details>
+
+<table>
+  <tr>
+    <td align="center" style="padding: 10px;">
+      <img src=""/>
+       <br>
+        <sub>
+          <b>Álvaro Garcia</b>
+          <p> <a href="https://www.linkedin.com/in/" ><img src="https://img.icons8.com/color/38/000000/linkedin.png"/></a> <a href="https://github.com/"><img src="https://img.icons8.com/ios-glyphs/38/000000/github.png"/></a>
+        </sub>
+      </a>
+    </td>
+    <td align="center" style="padding: 10px;">
+       <img src=""/>
+      <br>
+        <sub>
+          <b>Carlos Wylliam</b>
+          <p> <a href="https://www.linkedin.com/in/"><img src="https://img.icons8.com/color/38/000000/linkedin.png"/></a> <a href="https://github.com/"><img src="https://img.icons8.com/ios-glyphs/38/000000/github.png"/></a>
+        </sub>
+      </a>
+    </td>
+    <td align="center" style="padding: 10px;">
+       <img src=""/>
+      <br>
+        <sub>
+          <b>Mariana Moreira</b>
+          <p> <a href="https://www.linkedin.com/in/mariana-moreira-santos-39417828a/" ><img src="https://img.icons8.com/color/38/000000/linkedin.png"/></a> <a href="https://github.com/mari-moreira"><img src="https://img.icons8.com/ios-glyphs/38/000000/github.png"/></a>
+        </sub>
+      </a>
+    </td>
+     <td align="center" style="padding: 10px;">
+      <img src=""/>
+   <br>
+      <sub>
+          <b>Ravena Campos</b>
+          <p> <a href="https://www.linkedin.com/in/" ><img src="https://img.icons8.com/color/38/000000/linkedin.png"/></a> <a href="https://github.com/"><img src="https://img.icons8.com/ios-glyphs/38/000000/github.png"/></a>
+        </sub>
+      </a>
+    </td>
+    <td align="center" style="padding: 10px;">
+      <img src=""/>
+        <br>
+        <sub>
+          <b>Vinícius Soares</b>
+          <p> <a href="https://www.linkedin.com/in/" ><img src="https://img.icons8.com/color/38/000000/linkedin.png"/></a> <a href="https://github.com/"><img src="https://img.icons8.com/ios-glyphs/38/000000/github.png"/></a>
+        </sub>
+      </a>
+    </td>
+</tr>
+</table>
