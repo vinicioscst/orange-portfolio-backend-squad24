@@ -68,7 +68,7 @@ const updateProject = async (req, res) => {
     if (project.rowCount === 0) {
       return res
         .status(404)
-        .json({ mensagem: "O Projeto informado não foi encontrado" });
+        .json({ mensagem: "O projeto informado não foi encontrado" });
     }
 
     const imageUrl = project.rows[0].image;
@@ -118,17 +118,17 @@ const updateProject = async (req, res) => {
 const deleteProject = async (req, res) => {
   const { id: project_id } = req.params;
   try {
-    const project = await pool.query("SELECT * FROM  projects WHERE id = $1", [
+    const project = await pool.query("SELECT * FROM projects WHERE id = $1", [
       project_id,
     ]);
 
     if (project.rowCount === 0) {
       return res
         .status(404)
-        .json({ mensagem: "O projeto  informado não foi encontrado." });
+        .json({ mensagem: "O projeto informado não foi encontrado." });
     }
 
-    await pool.query("DELETE FROM  projects WHERE id = $1", [project_id]);
+    await pool.query("DELETE FROM projects WHERE id = $1", [project_id]);
 
     return res.status(204).send();
   } catch (error) {
