@@ -234,3 +234,59 @@ Critérios de aceite:
 Essa é a rota que será utilizada para deletar algum projeto cadastrado no sistema pelo o seu id.
 
 </details>
+
+## Colaboradores da Equipe
+### Conheça a Squad-24 !
+
+<table>
+  <tr>
+    <td align="center" style="padding: 10px;">    
+      <img src="https://github.com/Alvarosig.png" width="250px"/>
+       <br>
+        <sub>
+          <b>Álvaro Garcia</b>
+          <p> <a target="_blank" href="https://www.linkedin.com/in/alvarosig" ><img src="https://img.icons8.com/color/38/000000/linkedin.png"/></a> <a target="_blank" href="https://github.com/Alvarosig"><img src="https://img.icons8.com/ios-glyphs/38/000000/github.png"/></a>
+        </sub>
+      </a>
+  <p>Front-end</p>
+    </td>
+    <td align="center" style="padding: 10px;">
+       <img src="https://github.com/carlos-wylliam.png" width="250px"/>
+      <br>
+        <sub>
+          <b>Carlos Wylliam</b>
+          <p> <a target="_blank" href="https://www.linkedin.com/in/carlos-wylliam"><img src="https://img.icons8.com/color/38/000000/linkedin.png"/></a> <a target="_blank" href="https://github.com/carlos-wylliam"><img src="https://img.icons8.com/ios-glyphs/38/000000/github.png"/></a>
+        </sub>
+      </a>
+  <p>Back-end</p>
+    </td>
+    <td align="center" style="padding: 10px;">
+       <img src="https://github.com/mari-moreira.png" width="250px"/>
+      <br>
+        <sub>
+          <b>Mariana Moreira</b>
+          <p> <a target="_blank" href="https://www.linkedin.com/in/mariana-moreira-santos-39417828a/" ><img src="https://img.icons8.com/color/38/000000/linkedin.png"/></a> <a target="_blank" href="https://github.com/mari-moreira"><img src="https://img.icons8.com/ios-glyphs/38/000000/github.png"/></a>
+        </sub>
+      </a>
+  <p>Back-end</p>
+    </td>
+     <td align="center" style="padding: 10px;">
+      <img src="https://github.com/ravenascampos.png" width="250px"/>
+   <br>
+      <sub>
+          <b>Ravena Campos</b>
+          <p> <a target="_blank" href="https://www.linkedin.com/in/ravenascampos" ><img src="https://img.icons8.com/color/38/000000/linkedin.png"/></a> <a target="_blank" href="https://github.com/ravenascampos"><img src="https://img.icons8.com/ios-glyphs/38/000000/github.png"/></a>
+        </sub>
+      </a>
+    <p>Front-end</p>
+    </td>
+    <td align="center" style="padding: 10px;">
+      <img src="https://github.com/vinicioscst.png" width="250px"/>
+        <br>
+        <sub>
+          <b>Vinícios Soares</b>
+          <p> <a target="_blank" href="https://www.linkedin.com/in/vinicioscst" ><img src="https://img.icons8.com/color/38/000000/linkedin.png"/></a> <a target="_blank" href="https://github.com/vinicioscst"><img src="https://img.icons8.com/ios-glyphs/38/000000/github.png"/></a>
+        </sub>
+      </a>
+      <p>Full Stack</p>
+    </td>
