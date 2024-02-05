@@ -1,0 +1,273 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API hackathon orange juice",
+    "description": "Essa api foi construida durante o hackathon da orange juice, ela está integrada ao front-end do projeto.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "API de teste"
+    }
+  ],
+  "paths": {
+    "/user": {
+      "post": {
+        "sumary": "Cadastro de usuário",
+        "description": "Esta rota será responsável por cadastrar um novo usuário.",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "fullName": "Mariana Moreira",
+                    "email": "marianaMoreira@email.example",
+                    "password": "senhatest123",
+                    "image": "http://imagem-perfil.com",
+                    "isGoogleAccount": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "409": {
+            "description": "Já existe usuário cadastrado com o e-mail informado."
+          },
+          "500": {
+            "description": "Erro interno do servidor."
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/session": {
+      "post": {
+        "description": "Efetuar o login no sistema",
+        "sumary": "O usuário pode vir a efetuar o seu login no sistema",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "$ref": "#/components/schemas/User/properties/email"
+                  },
+                  "password": {
+                    "$ref": "#/components/schemas/User/properties/password"
+                  }
+                }
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "email": "marianaMoreira@email.example",
+                    "password": "senhatest123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "404": {
+            "description": "Conta não encontrada"
+          },
+          "401": {
+            "description": "E-mail ou senha incorretos."
+          },
+          "500": {
+            "description": "Erro interno do servidor."
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "$ref": "#/components/schemas/User/properties/email"
+                    },
+                    "password": {
+                      "$ref": "#/components/schemas/User/properties/password"
+                    }
+                  }
+                },
+                "examples": {
+                  "user": {
+                    "value": {
+                      "email": "marianaMoreira@email.example",
+                      "password": "senhatest123"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/session/google": {
+      "post": {
+        "description": "Efetuar o login no sistema com o google",
+        "sumary": "O usuário pode vir a efetuar o seu login no sistema com sua conta da google",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "409": {
+            "description": "Já existe uma conta cadastrada com esse email"
+          },
+          "500": {
+            "description": "Erro interno do servidor."
+          }
+        }
+      }
+    },
+    "/user/profile": {
+      "get": {
+        "description": "Obter todas as informações do usuário logado",
+        "sumary": "Essa é a rota que será utilizada para obter todas as informações do usuário logado desde o seu perfil a projetos cadastrados em seu nome.",
+        "tags": ["Users"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "401": {
+            "description": "Não autorizado"
+          },
+          "500": {
+            "description": "Erro interno do servidor."
+          }
+        }
+      }
+    },
+    "/projects": {
+      "post": {
+        "sumary": "Cadastro de projetos",
+        "description": "Essa é a rota que será utilizada para o usuário cadastrar o seu projeto.",
+        "tags": ["Projects"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Project"
+              },
+              "examples": {
+                "project": {
+                    "value": {
+                        "title": "To do List",
+                        "tags": "UI, Front-end",
+                        "link": "http://github-link-projeto.com",
+                        "description": "lista de tarefas",
+                        "image": "http://imagem-projeto.com",
+                        "createdDate": "02/24"
+                    }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+            "401": {
+                "description": "Não autorizado"
+            },
+            "500": {
+                "description": "Erro interno do servidor."
+            },
+            "201": {
+                "description": "Created",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/components/schemas/Project"
+                        }
+                    }
+                }
+            }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "isGoogleAccount": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Project": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "createdDate": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
