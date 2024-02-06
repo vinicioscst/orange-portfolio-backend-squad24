@@ -181,40 +181,130 @@
               },
               "examples": {
                 "project": {
-                    "value": {
-                        "title": "To do List",
-                        "tags": "UI, Front-end",
-                        "link": "http://github-link-projeto.com",
-                        "description": "lista de tarefas",
-                        "image": "http://imagem-projeto.com",
-                        "createdDate": "02/24"
-                    }
+                  "value": {
+                    "title": "To do List",
+                    "tags": "UI, Front-end",
+                    "link": "http://github-link-projeto.com",
+                    "description": "lista de tarefas",
+                    "image": "http://imagem-projeto.com",
+                    "createdDate": "02/24"
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-            "401": {
-                "description": "Não autorizado"
-            },
-            "500": {
-                "description": "Erro interno do servidor."
-            },
-            "201": {
-                "description": "Created",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "type": "object",
-                            "$ref": "#/components/schemas/Project"
-                        }
-                    }
+          "401": {
+            "description": "Não autorizado"
+          },
+          "500": {
+            "description": "Erro interno do servidor."
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Project"
                 }
+              }
             }
+          }
         }
       }
     },
+    "/project/{id}": {
+      "put": {
+        "summary": "Atualização de projeto",
+        "description": "Esta rota será responsável por atualizar  um projeto existente de um usuário logado.",
+        "tags": ["Projects"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do projeto a ser atualizado",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "tags": {
+                    "type": "string"
+                  },
+                  "link": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "createdDate": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": ["title", "tags", "createdDate"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "404": {
+            "description": "Projeto não encontrado"
+          },
+          "500": {
+            "description": "Erro interno do servidor."
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "tags": {
+                      "type": "string"
+                    },
+                    "link": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "image": {
+                      "type": "string"
+                    },
+                    "createdDate": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+
     "/projects/{id}": {
       "delete": {
         "summary": "Exclusão de projeto",
@@ -246,7 +336,7 @@
       }
     }
   },
-  
+
   "components": {
     "schemas": {
       "User": {
