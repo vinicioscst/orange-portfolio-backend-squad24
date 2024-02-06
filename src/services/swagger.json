@@ -169,10 +169,35 @@
       }
     },
     "/projects": {
+      "get": {
+        "summary": "Obter lista de projetos",
+        "description": "Esta rota será responsável por obter a lista de todos os projetos com detalhes do usuário associado.",
+        "tags": ["Projects"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Project"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor."
+          }
+        }
+      },
       "post": {
         "sumary": "Cadastro de projetos",
         "description": "Essa é a rota que será utilizada para o usuário cadastrar o seu projeto.",
         "tags": ["Projects"],
+        "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "content": {
             "application/json": {
