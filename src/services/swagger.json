@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "API hackathon orange juice",
+    "title": "API - Orange Portfólio (Squad 24)",
     "description": "Essa api foi construida durante o hackathon da orange juice, ela está integrada ao front-end do projeto.",
     "version": "1.0.0"
   },
