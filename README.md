@@ -11,6 +11,8 @@ Bem-vindo ao repositório oficial da API desenvolvida durante a participação n
 
 👩‍💻 Deploy da API 👉 [API](https://hackathon-squad24.onrender.com/)
 
+👩‍💻 Deploy da API 👉 [Documentação Swagger](https://hackathon-squad24.onrender.com/api-docs/#/)
+
 <hr>
 
 - [1. O Projeto](#1-o-projeto)
